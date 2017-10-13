@@ -13,29 +13,21 @@ class App extends Component {
         this.state = {
             vehicles : [],
             value : " ",
-            pilot :" "
+            pilot : " "
         };
   // FORM: HANDLE INPUT CHANGES
   // handleNameChange below:
   // See form lesson for details.
   // Enter your code below:
   }
-   handleNameChange(event){
+   handleNameChange = event => {
        //this value from the line 15
       this.setState({
           value:event.target.value
       })
-  }
+}
 
-
-  //  FORM: SUBMIT METHOD
-  // handleSubmit below:
-  // See form lesson for details.
-  // Once the form is sumbited, two things need to happen: set the state of pilot to the input value.
-  // Then, set the value of the input back to an empty string.
-  // Enter your code below:
-
-   handleSubmit(event){
+   handleSubmit = event => {
        event.preventdefault();
        this.setstate({
            // form value from pilot, and after SUBMIT
@@ -56,9 +48,7 @@ class App extends Component {
   // let URL = 'https://swapi.co/api/vehicles/';
   componentDidMount(){
       fetch('https://swapi.co/api/vehicles/')
-      .then((response) => {
-          return response.json()
-      })
+      .then(response => response.json())
       .then((json) => {
         //   let vehicles = json.results;
           console.log("data fetch",json.results)
@@ -86,11 +76,10 @@ class App extends Component {
       const vehicles = this.state.vehicles.map(function(vehicles){
           return(
               < div className = "card-block" key = {vehicles.name}>
-                  /* className set up are from Bootstrap default setting */
                       <div className="card">
                           <h4 className="card-title"> Name: {vehicles.name} </h4>
                           <h6 className="card-subtitle mb-2 text-muted"> Model: {vehicles.model} </h6>
-                          <h4> Spec </h4>
+                          <h4> Specs </h4>
                           <h4 className="card-title"> {vehicles.manufacturer} </h4>
                           <h6 className="card-subtitle mb-2 text-muted"> Class: {vehicles.vehicle_class} </h6>
                           <h6 className="card-subtitle mb-2 text-muted"> passenger:{vehicles.passengers} </h6>
@@ -112,21 +101,23 @@ class App extends Component {
 
     return (
         < div className = "App">
-
                  <div className="jumbotron">
                      <h1 className="display-3">Star Wars</h1 > <hr className="my-4"/> < p className = "lead" > The Vehicles of Star Wars < /p>
                  </div>
 
                  <div className="card form">
-                   <div className="card-block">
+                    <div className="card-block">
                        <h2 className="card-title">What is your name, pilot?</h2>
-                     <form onSubmit={this.handleSubmit}>
 
+                   <form className = 'form'>
                        <div className="form-group">
-                           <input className="form-control col-md-4 offset-md-4" id="pilotName" onChange={this.handleNameChange} name="name" type="text" value={this.state.value} placeholder="Enter your name"/>
+                           <input className="form-control col-md-4 offset-md-4"
+                             id="pilotName"
+                             onChange={this.handleNameChange}
+                             name="name" type="text" value={this.state.name}
+                             placeholder="Enter your name"/>
                        </div>
-
-                       <button type="submit" className="btn btn-primary">Submit</button>
+                       <button type="submit" onSubmit={this.handleSubmit} className="btn btn-primary">Submit</button>
                     </form>
 
                     <h1>{this.state.pilot}</h1>
@@ -134,19 +125,10 @@ class App extends Component {
                   </div>
                 </div>
 
-                < div className = "row" >
+                <div className = "row" >
                   {vehicles}
-                < /div>
-
-           < /div>
-
-
-            /*
-        The App component needs the following:
-         jumbotron section, form section, vehicle cards section.
-         Your form will also need a header in which you will pass the state of the form upon submit.
-
-         */
+                </div>
+              </div>
 
     );
   }
